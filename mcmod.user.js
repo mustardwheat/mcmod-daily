@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         MC百科每日一条龙：签到+访问主页+推荐整合包+推荐MOD+点赞服务器
 // @namespace    https://github.com/mustardwheat/mcmod-daily
-// @version      1.5
-// @description  打开 https://center.mcmod.cn/#/task/ 后自动完成：签到 → 访问指定用户主页 → 推荐指定整合包 → 推荐指定MOD → 点赞指定服务器 → 回到自己的主页。使用前请先在脚本顶部配置区填写自己的目标 ID。
+// @version      1.6
+// @description  打开 https://center.mcmod.cn/#/task/ 后自动完成：签到 → 访问指定用户主页 → 推荐指定整合包 → 推荐指定MOD → 点赞指定服务器（SERVER_ID=1 时跳过）→ 回到自己的主页。使用前请先在脚本顶部配置区填写自己的目标 ID。
 // @author       mustardwheat
 // @license      MIT
 // @match        https://center.mcmod.cn/*
@@ -23,14 +23,28 @@
 
     /* ==================================================
      *  配置区：修改下面的数字 ID 即可指定目标
+     *  其中 SERVER_ID 设为 1 表示跳过「点赞服务器」步骤
      * ================================================== */
-    const TARGET_USER_ID = 187287;   // 要访问的用户主页  center.mcmod.cn/187287/
-    const MODPACK_ID     = 784;      // 要推荐的整合包    www.mcmod.cn/modpack/784.html
-    const MOD_ID         = 14106;    // 要推荐的MOD       www.mcmod.cn/class/14106.html
-    const SERVER_ID      = 20188561; // 要点赞的服务器    play.mcmod.cn/sv20188561.html
+    const TARGET_USER_ID = 1; // 要访问的用户主页  center.mcmod.cn/1/
+    const MODPACK_ID     = 1; // 要推荐的整合包    www.mcmod.cn/modpack/1.html
+    const MOD_ID         = 1; // 要推荐的MOD       www.mcmod.cn/class/1.html
+    const SERVER_ID      = 1; // 要点赞的服务器    play.mcmod.cn/sv1.html（1 = 跳过此步）
     /* ================================================== */
 
     const FLOW_KEY = 'mcmod_flow_running';
+
+    /* 最后一步：回到自己的主页（读取头像链接地址，当前页跳转，不开新标签） */
+    function goMyHomepage() {
+        const avatar = document.querySelector(
+            'li.user-name a[href*="center.mcmod.cn"], .header-user a[href*="center.mcmod.cn"]'
+        );
+        if (avatar) {
+            console.log('[MC百科] ✅ 全部完成，回到自己的主页');
+            location.href = avatar.href;
+        } else {
+            console.log('[MC百科] ✅ 全部完成（未找到头像链接，停留当前页）');
+        }
+    }
 
     /* ---------- 第 1 步：任务页自动签到 ---------- */
     if (location.hostname === 'center.mcmod.cn' && location.hash.startsWith('#/task')) {
@@ -90,6 +104,10 @@
                 setTimeout(() => {
                     location.href = 'https://www.mcmod.cn/class/' + MOD_ID + '.html?mcmod_flow=1';
                 }, 2000);
+            } else if (SERVER_ID === 1) {
+                // 配置了跳过服务器点赞，直接回自己的主页
+                console.log('[MC百科] SERVER_ID=1，跳过点赞服务器');
+                setTimeout(goMyHomepage, 2000);
             } else {
                 // 第 5 步：前往服务器页点赞
                 setTimeout(() => {
@@ -117,18 +135,8 @@
                 console.log('[MC百科] 服务器已点赞过（当前状态：' + text + '）');
             }
 
-            // 最后一步：回到自己的主页（读取头像链接地址，当前页跳转，不开新标签）
-            setTimeout(() => {
-                const avatar = document.querySelector(
-                    'li.user-name a[href*="center.mcmod.cn"], .header-user a[href*="center.mcmod.cn"]'
-                );
-                if (avatar) {
-                    console.log('[MC百科] ✅ 全部完成，回到自己的主页');
-                    location.href = avatar.href;
-                } else {
-                    console.log('[MC百科] ✅ 全部完成（未找到头像链接，停留当前页）');
-                }
-            }, 2000);
+            // 最后一步：回到自己的主页
+            setTimeout(goMyHomepage, 2000);
         }, 500);
         setTimeout(() => clearInterval(timer), 30000);
     }

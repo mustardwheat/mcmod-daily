@@ -22,7 +22,7 @@
 | `TARGET_USER_ID` | 要访问的用户主页 ID | `187287` → `center.mcmod.cn/187287/` |
 | `MODPACK_ID` | 要推荐的整合包 ID | `784` → `www.mcmod.cn/modpack/784.html` |
 | `MOD_ID` | 要推荐的 MOD ID | `14106` → `www.mcmod.cn/class/14106.html` |
-| `SERVER_ID` | 要点赞的服务器 ID | `20188561` → `play.mcmod.cn/sv20188561.html` |
+| `SERVER_ID` | 要点赞的服务器 ID（**设为 `1` 则跳过点赞服务器这一步**） | `20188561` → `play.mcmod.cn/sv20188561.html` |
 
 ID 就是对应页面 URL 里的那串数字。
 
