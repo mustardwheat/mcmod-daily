@@ -17,12 +17,12 @@
 
 安装后**必须先修改脚本顶部的配置区**，把 4 个数字 ID 改成你自己的目标，否则会按作者示例里的 ID 执行：
 
-| 变量 | 含义 | 示例 |
-| --- | --- | --- |
-| `TARGET_USER_ID` | 要访问的用户主页 ID | `187287` → `center.mcmod.cn/187287/` |
-| `MODPACK_ID` | 要推荐的整合包 ID | `784` → `www.mcmod.cn/modpack/784.html` |
-| `MOD_ID` | 要推荐的 MOD ID | `14106` → `www.mcmod.cn/class/14106.html` |
-| `SERVER_ID` | 要点赞的服务器 ID（**设为 `1` 则跳过点赞服务器这一步**） | `20188561` → `play.mcmod.cn/sv20188561.html` |
+| 变量 | 含义 |
+| --- | --- |
+| `TARGET_USER_ID` | 要访问的用户主页 ID |
+| `MODPACK_ID` | 要推荐的整合包 ID |
+| `MOD_ID` | 要推荐的 MOD ID |
+| `SERVER_ID` | 要点赞的服务器 ID（**设为 `1` 则跳过点赞服务器这一步**） |
 
 ID 就是对应页面 URL 里的那串数字。
 

@@ -25,10 +25,10 @@
      *  配置区：修改下面的数字 ID 即可指定目标
      *  其中 SERVER_ID 设为 1 表示跳过「点赞服务器」步骤
      * ================================================== */
-    const TARGET_USER_ID = 1; // 要访问的用户主页  center.mcmod.cn/1/
-    const MODPACK_ID     = 1; // 要推荐的整合包    www.mcmod.cn/modpack/1.html
-    const MOD_ID         = 1; // 要推荐的MOD       www.mcmod.cn/class/1.html
-    const SERVER_ID      = 1; // 要点赞的服务器    play.mcmod.cn/sv1.html（1 = 跳过此步）
+    const TARGET_USER_ID = 1; // 要访问的用户主页ID
+    const MODPACK_ID     = 1; // 要推荐的整合包ID
+    const MOD_ID         = 1; // 要推荐的MOD ID
+    const SERVER_ID      = 1; // 要点赞的服务器ID（1 = 跳过此步）
     /* ================================================== */
 
     const FLOW_KEY = 'mcmod_flow_running';
